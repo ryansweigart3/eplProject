@@ -1,8 +1,7 @@
 import itertools
-from typing import final
 from gazpacho import get, Soup
 import pandas as pd
-import itertools
+
 
 
 # Initialize URL and parse html
@@ -21,8 +20,6 @@ cols = ['Team',
         'Goals Forced',
         'Goals Allowed',
         'Goal Difference',
-        #'Home Record',
-        #'Away Record',
         'Points']
 
 def main():
@@ -36,8 +33,7 @@ def main():
     # Cleaning up standingsList
     k = 10
 
-    standingsList = standingsList[k: ]
-    # print(standingsList)
+    standingsList = standingsList[k:]
 
     gamesPlayed = standingsList[0::10]
     wins = standingsList[1::10]
@@ -46,8 +42,6 @@ def main():
     goalsForced = standingsList[4::10]
     goalsAllowed = standingsList[5::10]
     goalDifference = standingsList[6::10]
-    # homeRecord = standingsList[7::10]
-    # awayRecord = standingsList[8::10]
     points = standingsList[9::10]
 
     # Grab team names (have to pull even and odd since they have different classes)
@@ -73,7 +67,7 @@ def main():
     # print(finalStandings)
 
     df = pd.DataFrame(list(zip(finalStandings, gamesPlayed, wins, draws, losses, goalsForced, goalsAllowed, goalDifference, points)), 
-                    columns = cols)
+                     columns = cols)
 
     df = df.set_index('Team')
     print(df)
