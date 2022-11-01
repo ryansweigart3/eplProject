@@ -7,7 +7,7 @@ from email import encoders
 
 my_email = "coffeedatadev@gmail.com"
 receiveEmail = "coffeedatadev@gmail.com"
-my_password = "rdeygcxvmwyldvyo"
+my_password = "*****************"
 
 message = MIMEMultipart()
 message['From'] = my_email
