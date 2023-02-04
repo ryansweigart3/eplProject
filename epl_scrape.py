@@ -9,14 +9,6 @@ import psycopg2
 datetime = date.today()
 timestamp = datetime.strftime("%d%m%y")
 
-# initialize database
-conn = psycopg2.connect(
-    database='test_db',
-    user='****',
-    password='**********',
-    host='0.0.0.0'
-)
-
 # Initialize URL and parse html
 url = "https://scores.nbcsports.com/epl/standings.asp"
 html = get(url)
@@ -92,20 +84,6 @@ def main():
     with open ('eplFullStandings' + timestamp + '.csv', 'w+') as of:
         of.write(output)
         of.close()
-    
-    cur = conn.cursor()
-
-    # create table
-    cur.execute('CREATE TABLE standings (team char(100), games_played char(100), wins char(100), draws char(100), losses char(100), goals_forced char(100), goals_allowed char(100), goal_difference char(100), points char(100));')
-
-    # add df to database
-    with open('eplFullStandings' + timestamp + '.csv', 'r') as f:    
-        next(f) # Skip the header row.
-        cur.copy_from(f, 'standings', sep=',')
-    
-    conn.commit()
-    conn.close()
-    cur.close()
     
     print("That's it! Scrape is complete!")
     
